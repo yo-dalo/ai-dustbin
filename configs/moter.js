@@ -1,9 +1,13 @@
-class FakeGpio {
-  constructor(pin, dir) { this.pin = pin; this.dir = dir; }
-  writeSync(val) { console.log(`(Sim) GPIO ${this.pin} -> ${val}`); }
-  unexport() { console.log(`(Sim) GPIO ${this.pin} released`); }
-}
-const Gpio = FakeGpio;
+// class FakeGpio {
+//   constructor(pin, dir) { this.pin = pin; this.dir = dir; }
+//   writeSync(val) { console.log(`(Sim) GPIO ${this.pin} -> ${val}`); }
+//   unexport() { console.log(`(Sim) GPIO ${this.pin} released`); }
+// }
+// const Gpio = FakeGpio;
+
+const Gpio = require('onoff').Gpio;
+
+
 const motors = {
        m1:{
            pin1: new Gpio(18, "out"),

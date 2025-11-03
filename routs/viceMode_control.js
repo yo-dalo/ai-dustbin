@@ -40,11 +40,11 @@ router.get("/vice/:action", async (_, res) => {
 
 
 
-process.on("SIGINT", () => {
+// process.on("SIGINT", () => {
   
-  Object.values(motors).forEach(m => m.unexport());
-  process.exit();
-});
+//   Object.values(motors).forEach(m => m.unexport());
+//   process.exit();
+// });
 
 
 module.exports = router; 
