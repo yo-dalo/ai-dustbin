@@ -1,76 +1,53 @@
 const express = require("express");
 const Action = require("../utilty/action");
 
-
-
 const router = express.Router();
 
+router.get("/m/:action", async (req, res) => {
+  const whatAction = req.params.action;
 
+  switch (whatAction) {
+    case "backward":
+      await Action.backward();
+      res.send({ status: "Backward ho jayega" });
+      break;
 
-router.get("/m/:action", async (_, res) => {
-        
-      const whatAction  = _?.params?.action; 
+    case "forward":
+      await Action.forward();
+      res.send({ status: "Forward jayega" });
+      break;
 
-    if(whatAction=="backward"){
-        await Action.backward()
-         res.send({ status: " backward ho jayega" }); 
-    }
-        
-     else if(whatAction=="forward"){
-         await Action.forward() 
-         res.send({ status: "forward jayega" }); 
+    case "right":
+      await Action.right();
+      res.send({ status: "Right run krega" });
+      break;
 
-     } 
-     else if(whatAction=="right"){
+    case "left":
+      await Action.left();
+      res.send({ status: "Left krega" });
+      break;
 
-          Action.right()
-         res.send({ status: "right run krega" }); 
-     } 
+    case "open":
+      await Action.servoAngel(90);
+      res.send({ status: "Open box" });
+      break;
 
-     else if(whatAction=="left") {
-        await Action.left()
+    case "close":
+      await Action.servoAngel(1500);
+      res.send({ status: "Close hoyega" });
+      break;
 
-         res.send({ status: "left krega" }); 
-     }
-     
-      else if(whatAction=="open"){
-          Action.servoAngel(90)
-         res.send({ status: "open box" }); 
-     } 
-     
-      else if(whatAction=="close"){
-
-          Action.servoAngel(1500)
-         res.send({ status: "close hoyega" }); 
-     } 
-     
-     
-     
-     
-     
-     
-     else{
-        res.send({ status: "provide right command " });
-     }
-
-  // await  Action.stopAll()
-//   res.send({ status: "stopped" });
+    default:
+      res.send({ status: "Provide right command" });
+      break;
+  }
 });
 
- 
-
-
-
-
-
-
-
-
-// process.on("SIGINT", () => {
-  
-//   Object.values(motors).forEach(m => m.unexport());
+// Optional cleanup on exit
+// process.on("SIGINT", async () => {
+//   await Action.stopAll();
+//   Object.values(require("../configs/moter")).forEach(m => m.unexport());
 //   process.exit();
 // });
 
-
-module.exports = router; 
+module.exports = router;
